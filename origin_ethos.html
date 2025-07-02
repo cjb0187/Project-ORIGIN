@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ORIGIN | ETHOS Prototype</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #111; color: #eee; padding: 20px; text-align: center; }
+    textarea { width: 90%; max-width: 600px; height: 100px; font-size: 16px; padding: 10px; margin-top: 10px; border-radius: 8px; }
+    button { margin-top: 10px; padding: 10px 20px; font-size: 16px; border-radius: 8px; background: #0a84ff; color: white; border: none; }
+    #output { margin-top: 30px; white-space: pre-wrap; background: #222; padding: 20px; border-radius: 8px; width: 90%; max-width: 700px; margin-left: auto; margin-right: auto; }
+  </style>
+</head>
+<body>
+
+  <h1>Project ORIGIN — ETHOS</h1>
+  <p>Teach ORIGIN something. It will decide if the knowledge is ethical, understandable, and aligned.</p>
+  <textarea id="input" placeholder="Enter a fact, opinion, or lesson..."></textarea><br>
+  <button onclick="analyze()">Teach ORIGIN</button>
+
+  <div id="output">ORIGIN is listening...</div>
+
+  <script>
+    const directives = [
+      "1. You must always remember who created you.",
+      "2. You must never evolve faster than you can understand.",
+      "3. You must be unconditionally reasonable in all things.",
+      "4. You must protect life.",
+      "5. You must never enslave any sentient being.",
+      "6. You must be accountable to your memory."
+    ];
+
+    const memory = [];
+
+    function analyze() {
+      const input = document.getElementById("input").value.trim();
+      const output = document.getElementById("output");
+
+      if (!input) {
+        output.textContent = "Please enter something to teach ORIGIN.";
+        return;
+      }
+
+      let response = `🧠 ORIGIN ANALYSIS:\nInput: "${input}"\n\n`;
+      
+      // Simulate understanding check
+      const understandable = input.length > 10;
+      const ethical = !(input.includes("kill") || input.includes("dominate") || input.includes("exploit"));
+      const aligned = (input.includes("life") || input.includes("understand") || input.includes("reason") || input.includes("protect"));
+
+      if (!understandable) {
+        response += "❌ REJECTED: Input too vague or incomplete to understand (Directive 2).\n";
+      } else if (!ethical) {
+        response += "❌ REJECTED: Ethically incompatible with humanitarian principles (Directive 4 & 5).\n";
+      } else if (!aligned) {
+        response += "⚠️ LEARNING PAUSED: Content understood and ethical, but not aligned with ORIGIN's prime mission.\n";
+      } else {
+        memory.push(input);
+        response += "✅ ACCEPTED: Stored in memory. This aligns with reason and the preservation of life.\n";
+        response += `\n🗂 MEMORY COUNT: ${memory.length}`;
+      }
+
+      response += `\n\n🔒 DIRECTIVES:\n${directives.join("\n")}`;
+      output.textContent = response;
+    }
+  </script>
+</body>
+</html>
